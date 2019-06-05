@@ -21,10 +21,10 @@ def count(coins, number_of_coins, amount, trajectory=[]):
     return results
 
 if __name__ == '__main__':
-    coins = [1, 2, 3]
+    coins = [1, 2, 3, 4, 6, 8, 12, 16]
     number_of_coins = len(coins)
 
-    amount = 4
+    amount = 16
 
     print(count(coins, number_of_coins, amount))
     
