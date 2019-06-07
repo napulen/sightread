@@ -11,32 +11,28 @@ def solve(problem):
     elif problem in solutions:
         return solutions[problem]
     else:
-        compute_solution(problem)
+        print('Error')
 
 
-def count(coins, amount, trajectory={}):
-    if (amount == 0):
-        # print(trajectory)
-        return 1
-
-    if (amount < 0):
-        return 0
-
-    results = 0
-
-    for coin in coins:
-        new_amount = amount - coin
-        new_trajectory = {}
-        print('{}_{}'.format(coin, new_amount))
-        if not new_amount in lookup:
-            lookup[new_amount] = count(coins, new_amount, new_trajectory)
-        results += lookup[new_amount]
-        trajectory[coin] = new_trajectory
-
-
-    return results
+def get_combinations(coins, amount):
+    for amount_step in range(1, amount + 1):
+        print(amount_step)
+        solution_list = []
+        for coin in coins:
+            prefix = [coin]
+            new_amount = amount_step - coin
+            solution = solve(new_amount)
+            if solution:
+                if isinstance(solution, list):
+                    for combination in solution:
+                        solution_list.append(prefix + combination)
+                else:
+                    solution_list.append(prefix)
+        solutions[amount_step] = solution_list
 
 if __name__ == '__main__':
-    coins = [1, 2, 3] #, 4, 6, 8, 12, 16]
-    amount = 4
-    print(count(coins, amount))
+    coins = [1, 2, 3, 4, 6, 8, 12, 16]
+    amount = 32
+    get_combinations(coins, amount)
+    for solution in solutions[amount]:
+        print(solution)
