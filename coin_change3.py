@@ -27,7 +27,7 @@ def create_tree(coins, amount):
 if __name__ == '__main__':
     coins = [1, 2, 4, 8, 16, 32]
     coins_reversed = list(reversed(coins))
-    amount = 32
+    amount = 16
     create_tree(coins, amount)
     pprint.pprint(solutions)
-    recurse(32)
+    recurse(amount)
