@@ -1,15 +1,16 @@
 # Copyright 2019 Nestor Napoles Lopez
 import copy
+import pprint
 
 solutions = {}
 
 def solve(problem):
-    if problem == 0:
-        return True
-    elif problem < 0:
-        return False
-    elif problem in solutions:
+    if problem in solutions:
         return solutions[problem]
+    elif problem == 0:
+        return [[]]
+    elif problem < 0:
+        return []
     else:
         print('Error')
 
@@ -20,19 +21,19 @@ def get_combinations(coins, amount):
         solution_list = []
         for coin in coins:
             prefix = [coin]
-            new_amount = amount_step - coin
-            solution = solve(new_amount)
+            problem = amount_step - coin
+            solution = solve(problem)
             if solution:
-                if isinstance(solution, list):
-                    for combination in solution:
-                        solution_list.append(prefix + combination)
-                else:
-                    solution_list.append(prefix)
+                branch = [prefix + sol for sol in solution]
+                solution_list += branch
         solutions[amount_step] = solution_list
 
 if __name__ == '__main__':
-    coins = [1, 2, 3, 4, 6, 8, 12, 16]
+    coins = [1, 2, 4, 8, 16, 32]
+    coins_reversed = list(reversed(coins))
     amount = 32
     get_combinations(coins, amount)
     for solution in solutions[amount]:
-        print(solution)
+        solution_reversed = [coins_reversed[coins.index(x)] for x in solution]
+        print(solution_reversed)
+    print(len(solutions[amount]))
